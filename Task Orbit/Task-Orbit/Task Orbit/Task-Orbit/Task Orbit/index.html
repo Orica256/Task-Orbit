@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Task Orbit</title>
+    <meta name="theme-color" content="#0f766e" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true"></div>
+
+    <main class="app">
+      <header class="hero">
+        <p class="hero-kicker">iPhone向けタスク管理</p>
+        <h1>Task Orbit</h1>
+        <p class="hero-sub">素早く記録、確実に完了。端末内に安全保存。</p>
+      </header>
+
+      <section class="overview" aria-label="進捗サマリー">
+        <article class="stat-card">
+          <p class="stat-label">総タスク</p>
+          <p class="stat-value" id="stat-total">0</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat-label">未完了</p>
+          <p class="stat-value" id="stat-active">0</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat-label">完了</p>
+          <p class="stat-value" id="stat-done">0</p>
+        </article>
+      </section>
+
+      <div class="smart-grid">
+        <section class="panel form-panel" aria-label="タスク追加">
+          <form id="task-form">
+            <label class="field">
+              <span>タスク名</span>
+              <input id="task-title" type="text" maxlength="120" placeholder="例: 買い物リストを作る" required />
+            </label>
+
+            <div class="grid-two">
+              <label class="field">
+                <span>期限</span>
+                <input id="task-deadline" type="datetime-local" />
+              </label>
+
+              <label class="field">
+                <span>優先度</span>
+                <select id="task-priority">
+                  <option value="high">高</option>
+                  <option value="medium" selected>中</option>
+                  <option value="low">低</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="field">
+              <span>タグ（カンマ区切り）</span>
+              <input id="task-tags" type="text" maxlength="100" placeholder="例: 仕事, 緊急" />
+            </label>
+
+            <button class="btn primary" id="submit-btn" type="submit">タスクを追加</button>
+          </form>
+        </section>
+
+        <section class="panel controls" aria-label="検索と絞り込み">
+          <label class="field compact">
+            <span>検索</span>
+            <input id="search-input" type="search" placeholder="タスク名・タグで検索" />
+          </label>
+
+          <div class="grid-two">
+            <label class="field compact">
+              <span>状態</span>
+              <select id="status-filter">
+                <option value="all">すべて</option>
+                <option value="active">未完了</option>
+                <option value="done">完了</option>
+              </select>
+            </label>
+
+            <label class="field compact">
+              <span>優先度</span>
+              <select id="priority-filter">
+                <option value="all">すべて</option>
+                <option value="high">高</option>
+                <option value="medium">中</option>
+                <option value="low">低</option>
+              </select>
+            </label>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel list-panel" aria-label="タスク一覧">
+        <div class="list-head">
+          <h2>タスク一覧</h2>
+          <button class="btn ghost" id="clear-done" type="button">完了済みを削除</button>
+        </div>
+        <p id="list-empty" class="empty">タスクがありません。最初の1件を追加してください。</p>
+        <div id="task-groups" class="task-groups"></div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

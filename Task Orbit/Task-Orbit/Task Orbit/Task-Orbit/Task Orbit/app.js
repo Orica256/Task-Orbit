@@ -141,11 +141,10 @@ function getFilteredTasks() {
 
 function render() {
   const grouped = getGroupedTasks();
-  const totalVisible = grouped.today.length + grouped.week.length + grouped.later.length + grouped.none.length;
+  const totalVisible = grouped.today.length + grouped.week.length + grouped.none.length;
   els.groups.innerHTML = [
     groupToHtml("today", "今日", grouped.today),
     groupToHtml("week", "今週", grouped.week),
-    groupToHtml("later", "来週以降", grouped.later),
     groupToHtml("none", "期限なし", grouped.none),
   ].join("");
   els.empty.hidden = totalVisible > 0;
@@ -155,13 +154,12 @@ function render() {
 }
 
 function getGroupedTasks() {
-  const grouped = { today: [], week: [], later: [], none: [] };
+  const grouped = { today: [], week: [], none: [] };
   const now = new Date();
   const endToday = new Date(now);
   endToday.setHours(23, 59, 59, 999);
   const endWeek = new Date(now);
-  const remainingDays = (7 - endWeek.getDay()) % 7;
-  endWeek.setDate(endWeek.getDate() + remainingDays);
+  endWeek.setDate(endWeek.getDate() + 7);
   endWeek.setHours(23, 59, 59, 999);
 
   for (const task of getFilteredTasks()) {
@@ -186,7 +184,7 @@ function getGroupedTasks() {
       continue;
     }
 
-    grouped.later.push(task);
+    grouped.week.push(task);
   }
 
   return grouped;
